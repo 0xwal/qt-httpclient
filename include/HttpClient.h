@@ -22,9 +22,10 @@ class HttpClient final : public QObject
 #define RESPONSE_RETURN_TYPE std::unique_ptr<HttpResponse>
 public:
     explicit HttpClient(QObject *parent = nullptr);
-    ~HttpClient();
+    ~HttpClient() override;
 
     static HttpClient *global();
+    static QString version();
 
     void setGlobalHeaders(const QList<QNetworkReply::RawHeaderPair> &headers) const;
     void setGlobalCookies(const QList<QNetworkCookie> &cookies) const;
