@@ -141,6 +141,7 @@ RESPONSE_RETURN_TYPE HttpClient::setUp(const QByteArray &method, const HttpReque
 
     m_request.setUrl(m_url);
     m_request.setRawHeader("Cookie", m_cookiesList.join("; ").toUtf8());
+    m_request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, HTTPCLIENT_DEFAULT_USER_AGENT  + version());
 
     QEventLoop loop;
 

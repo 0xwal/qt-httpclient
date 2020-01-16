@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 
-include(GNUInstallDirs)
-
 set(BUILD_SHARED_LIBS FALSE)
 
 project(HttpClient VERSION 1.0.0)
@@ -49,12 +47,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/include")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network)
 
-set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out")
-
+include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         )
-
-

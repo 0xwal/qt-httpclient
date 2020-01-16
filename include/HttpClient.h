@@ -14,7 +14,7 @@
 #include "HttpRequest.h"
 
 
-
+#define HTTPCLIENT_DEFAULT_USER_AGENT "HttpClient "
 
 class HttpClient final : public QObject
 {
