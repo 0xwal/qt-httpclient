@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(BUILD_SHARED_LIBS FALSE)
-
 project(HttpClient VERSION 1.0.0)
+
+set(CMAKE_DEBUG_POSTFIX "d")
+
+set(CMAKE_CONFIGURATION_TYPES Debug Release)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -38,6 +40,7 @@ add_library(${PROJECT_NAME}
         source/HttpRequest.cpp
         source/HttpResponse.cpp
         source/HttpUtils.cpp)
+
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 
