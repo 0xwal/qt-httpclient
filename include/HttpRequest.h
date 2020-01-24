@@ -10,8 +10,6 @@
 class HttpRequest {
 
 public:
-
-
 	QList<QNetworkReply::RawHeaderPair> headers() const;
 	void setHeaders(const QList<QNetworkReply::RawHeaderPair>& headers);
 
@@ -21,14 +19,15 @@ public:
 	QList<QNetworkCookie> cookies() const;
 	void setCookies(const QList<QNetworkCookie>& cookies);
 
-
-
 	QUrl url() const;
 	void setUrl(const QUrl& url);
 
 
 	HttpContentInterface* body() const;
 	void setBody(HttpContentInterface* body);
+
+    quint32 timeout() const;
+    void setTimeout(quint32 timoutInMS);
 
 private:
 	QList<QNetworkReply::RawHeaderPair> m_headers;
@@ -39,6 +38,7 @@ private:
 
 	HttpContentInterface* m_body = nullptr;
 
+	quint32 m_timeout;
 };
 
 

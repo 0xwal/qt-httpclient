@@ -51,3 +51,13 @@ void HttpRequest::setCookies(const QList<QNetworkCookie> &cookies)
 {
     m_cookies = cookies;
 }
+
+quint32 HttpRequest::timeout() const
+{
+    return m_timeout;
+}
+
+void HttpRequest::setTimeout(quint32 timoutInMS)
+{
+    m_timeout = timoutInMS;
+}

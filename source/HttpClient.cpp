@@ -1,8 +1,8 @@
+#include <QtCore/QTimer>
 #include "HttpClient.h"
 
 HttpClient::HttpClient(QObject *parent) :
         QObject(parent),
-        m_reply(Q_NULLPTR),
         m_globalRequestOptions(new HttpGlobalRequestOptions)
 {
 }
@@ -17,7 +17,6 @@ HttpClient *HttpClient::global()
     static auto *httpClient = new HttpClient;
     return httpClient;
 }
-
 
 void HttpClient::setGlobalHeaders(const QList<QNetworkReply::RawHeaderPair> &headers) const
 {
@@ -34,6 +33,10 @@ void HttpClient::setGlobalQueries(const QList<QueryPairs> &queries) const
     m_globalRequestOptions->setQueries(queries);
 }
 
+void HttpClient::setGlobalTimeout(quint32 timeoutInMS)
+{
+    m_globalRequestOptions->setTimeout(timeoutInMS);
+}
 
 RESPONSE_RETURN_TYPE HttpClient::get(const QString &url, HttpRequest &request)
 {
@@ -144,12 +147,27 @@ RESPONSE_RETURN_TYPE HttpClient::setUp(const QByteArray &method, const HttpReque
     m_request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, HTTPCLIENT_DEFAULT_USER_AGENT  + version());
 
     QEventLoop loop;
-
     connect(&m_accessManager, &QNetworkAccessManager::finished, &loop, &QEventLoop::quit);
+
 
     const QByteArray content = setUpContent(request.body());
     emit beforeRequest(request);
+
+
     QNetworkReply *reply = m_accessManager.sendCustomRequest(m_request, method, content);
+
+    QTimer timer;
+    quint32 timeout;
+    if ((timeout = request.timeout()) > 0 || (timeout  = m_globalRequestOptions->timeout()) > 0)
+    {
+        connect(&timer, &QTimer::timeout, [&] {
+            reply->abort();
+            reply->close();
+            loop.quit();
+        });
+        timer.start(timeout);
+    }
+
     loop.exec();
 
     RESPONSE_RETURN_TYPE response(std::make_unique<HttpResponse>(reply));

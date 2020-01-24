@@ -10,6 +10,7 @@ class HttpResponse
 {
 public:
 	explicit HttpResponse(QNetworkReply* reply);
+	~HttpResponse();
 
 	QByteArray statusText() const;
 	qint16 statusCode() const;

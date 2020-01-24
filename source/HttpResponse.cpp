@@ -7,6 +7,12 @@ HttpResponse::HttpResponse(QNetworkReply* reply) : m_reply(reply)
 
 }
 
+HttpResponse::~HttpResponse()
+{
+    m_reply->deleteLater();
+}
+
+
 QByteArray HttpResponse::statusText() const
 {
 	return m_reply->attribute(QNetworkRequest::Attribute::HttpReasonPhraseAttribute).toByteArray();
@@ -71,3 +77,4 @@ QString HttpResponse::errorMessage() const
 {
 	return m_reply->errorString();
 }
+

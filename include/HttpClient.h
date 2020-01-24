@@ -30,6 +30,7 @@ public:
     void setGlobalHeaders(const QList<QNetworkReply::RawHeaderPair> &headers) const;
     void setGlobalCookies(const QList<QNetworkCookie> &cookies) const;
     void setGlobalQueries(const QList<QueryPairs> &queries) const;
+    void setGlobalTimeout(quint32 timeoutInMS);
 
     RESPONSE_RETURN_TYPE get(const QString& url, HttpRequest& request);
 
@@ -48,7 +49,7 @@ signals:
 private:
     QNetworkAccessManager m_accessManager;
     QNetworkRequest m_request;
-    QNetworkReply* m_reply;
+
     QUrl m_url;
 	QUrlQuery m_urlQuery;
     HttpGlobalRequestOptions* m_globalRequestOptions;
@@ -61,6 +62,7 @@ private:
 	QByteArray setUpContent(HttpContentInterface* content);
 
     void applyGlobalRequestOptions();
+
     RESPONSE_RETURN_TYPE setUp(const QByteArray& method, const HttpRequest& request);
 };
 

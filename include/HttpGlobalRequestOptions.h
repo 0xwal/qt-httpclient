@@ -19,10 +19,14 @@ public:
 	QList<QNetworkReply::RawHeaderPair> headers() const;
 	void setHeaders(const QList<QNetworkReply::RawHeaderPair>& headers);
 
+    quint32 timeout() const;
+    void setTimeout(quint32 timeoutInMS);
+
 private:
 	QList<QNetworkReply::RawHeaderPair> m_headers;
 	QList<QNetworkCookie> m_cookies;
 	QList<QueryPairs> m_queries;
+	quint32 m_timeout;
 };
 
 

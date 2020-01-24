@@ -30,3 +30,13 @@ void HttpGlobalRequestOptions::setHeaders(const QList<QNetworkReply::RawHeaderPa
 {
     m_headers = headers;
 }
+
+quint32 HttpGlobalRequestOptions::timeout() const
+{
+    return m_timeout;
+}
+
+void HttpGlobalRequestOptions::setTimeout(quint32 timeoutInMS)
+{
+    m_timeout = timeoutInMS;
+}
