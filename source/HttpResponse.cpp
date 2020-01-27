@@ -1,7 +1,6 @@
 #include "HttpResponse.h"
 
 
-
 HttpResponse::HttpResponse(QNetworkReply* reply) : m_reply(reply)
 {
 
@@ -55,12 +54,16 @@ QByteArray HttpResponse::header(const QByteArray& name) const
 
 QJsonDocument HttpResponse::json() const
 {
-	return QJsonDocument::fromJson(m_reply->readAll());
+    if (m_reply->bytesAvailable())
+        this->m_body = m_reply->readAll();
+	return QJsonDocument::fromJson(m_body);
 }
 
 QByteArray HttpResponse::body() const
 {
-	return m_reply->readAll();
+    if (m_reply->bytesAvailable())
+        this->m_body = m_reply->readAll();
+	return this->m_body;
 }
 
 bool HttpResponse::hasError() const
