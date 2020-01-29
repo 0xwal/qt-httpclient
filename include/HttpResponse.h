@@ -33,7 +33,7 @@ public:
 
 
 private:
-	QNetworkReply* m_reply;
+	QNetworkReply* m_reply{};
     mutable QByteArray m_body;
 };
 

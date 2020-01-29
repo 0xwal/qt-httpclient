@@ -36,9 +36,8 @@ private:
 
 	QUrl m_url;
 
-	HttpContentInterface* m_body = nullptr;
-
-	quint32 m_timeout;
+	HttpContentInterface* m_body{};
+	quint32 m_timeout{};
 };
 
 

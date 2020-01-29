@@ -26,7 +26,7 @@ private:
 	QList<QNetworkReply::RawHeaderPair> m_headers;
 	QList<QNetworkCookie> m_cookies;
 	QList<QueryPairs> m_queries;
-	quint32 m_timeout;
+	quint32 m_timeout{};
 };
 
 

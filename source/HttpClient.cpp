@@ -70,7 +70,8 @@ std::unique_ptr<HttpResponse> HttpClient::patch(const QString &url, HttpRequest 
 
 void HttpClient::setRequestHeaders(const QList<QNetworkReply::RawHeaderPair> &headers)
 {
-    for (auto &header: headers) {
+    for (auto &header: headers)
+    {
         m_request.setRawHeader(header.first, header.second);
     }
 }
@@ -78,14 +79,16 @@ void HttpClient::setRequestHeaders(const QList<QNetworkReply::RawHeaderPair> &he
 void HttpClient::setRequestCookies(const QList<QNetworkCookie> &cookies)
 {
     QStringList &cookiesList = m_cookiesList;
-    for (auto &cookie : cookies) {
+    for (auto &cookie : cookies)
+    {
         cookiesList.append(QString("%1=%2").arg(QString(cookie.name()), QString(cookie.value())));
     }
 }
 
 void HttpClient::setRequestQueries(const QList<QueryPairs> &queries)
 {
-    for (auto &query : queries) {
+    for (auto &query : queries)
+    {
         m_urlQuery.addQueryItem(query.first, query.second);
     }
 }
@@ -144,7 +147,7 @@ RESPONSE_RETURN_TYPE HttpClient::setUp(const QByteArray &method, const HttpReque
 
     m_request.setUrl(m_url);
     m_request.setRawHeader("Cookie", m_cookiesList.join("; ").toUtf8());
-    m_request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, HTTPCLIENT_DEFAULT_USER_AGENT  + version());
+    m_request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, HTTPCLIENT_DEFAULT_USER_AGENT + version());
 
     QEventLoop loop;
     connect(&m_accessManager, &QNetworkAccessManager::finished, &loop, &QEventLoop::quit);
@@ -158,8 +161,11 @@ RESPONSE_RETURN_TYPE HttpClient::setUp(const QByteArray &method, const HttpReque
 
     QTimer timer;
     quint32 timeout;
-    if ((timeout = request.timeout()) > 0 || (timeout  = m_globalRequestOptions->timeout()) > 0)
+    if ((timeout = request.timeout()) > 0 || (timeout = m_globalRequestOptions->timeout()) > 0)
     {
+#ifdef QT_DEBUG
+        qDebug() << "Setting up the timeout" << timeout;
+#endif
         connect(&timer, &QTimer::timeout, [&] {
             reply->abort();
             reply->close();

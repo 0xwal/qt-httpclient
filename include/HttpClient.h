@@ -52,7 +52,7 @@ private:
 
     QUrl m_url;
 	QUrlQuery m_urlQuery;
-    HttpGlobalRequestOptions* m_globalRequestOptions;
+    HttpGlobalRequestOptions* m_globalRequestOptions{};
 	QStringList m_cookiesList;
 
     void setRequestHeaders(const QList<QNetworkReply::RawHeaderPair> &headers);
