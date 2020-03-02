@@ -44,7 +44,7 @@ public:
 
 signals:
 	void beforeRequest(const HttpRequest& request);
-	void afterRequest();
+	void afterRequest(HttpResponse* reply);
 
 private:
     QNetworkAccessManager m_accessManager;

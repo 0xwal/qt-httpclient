@@ -9,9 +9,9 @@ HttpResponse::HttpResponse(QNetworkReply* reply) : m_reply(reply)
 HttpResponse::~HttpResponse()
 {
 #ifdef QT_DEBUG
-    qDebug() << "Response Deleted " << this->m_reply->request().url().toString() << this->statusCode();
+    qDebug() << "HTTPCLIENT: " "Response Deleted " << this->m_reply->request().url().toString() << this->statusCode();
     if (this->hasError())
-        qDebug() << this->errorMessage();
+        qDebug() << "HTTPCLIENT: " << this->errorMessage();
 #endif
     m_reply->deleteLater();
 }

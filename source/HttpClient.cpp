@@ -164,7 +164,7 @@ RESPONSE_RETURN_TYPE HttpClient::setUp(const QByteArray &method, const HttpReque
     if ((timeout = request.timeout()) > 0 || (timeout = m_globalRequestOptions->timeout()) > 0)
     {
 #ifdef QT_DEBUG
-        qDebug() << "Setting up the timeout" << timeout;
+        qDebug() << "HTTPCLIENT: " "Setting up the timeout" << timeout;
 #endif
         connect(&timer, &QTimer::timeout, [&] {
             reply->abort();
@@ -177,7 +177,8 @@ RESPONSE_RETURN_TYPE HttpClient::setUp(const QByteArray &method, const HttpReque
     loop.exec();
 
     RESPONSE_RETURN_TYPE response(std::make_unique<HttpResponse>(reply));
-    emit afterRequest();
+    emit afterRequest(response.get());
+
     return response;
 
 }
