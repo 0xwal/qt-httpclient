@@ -4,7 +4,7 @@ project(HttpClient VERSION 1.0.0)
 
 set(CMAKE_CONFIGURATION_TYPES Debug Release)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -18,9 +18,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/5.13.2/mingw73_32")
+set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
 
-find_package(Qt5 COMPONENTS Widgets Network)
+find_package(Qt5 COMPONENTS Network)
 
 add_library(${PROJECT_NAME}
         include/HttpClient.h
@@ -44,13 +44,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC HTTPCLIENT_VERSION="${PROJECT_VERSION}")
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/include")
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network)
-
-include(GNUInstallDirs)
-install(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        )
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Network)
