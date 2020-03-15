@@ -23,27 +23,31 @@ set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
 find_package(Qt5 COMPONENTS Network)
 
 add_library(${PROJECT_NAME}
-        include/HttpClient.h
-        include/HttpContentInterface.h
-        include/HttpGlobalRequestOptions.h
-        include/HttpJsonContent.h
-        include/HttpQueryContent.h
-        include/HttpRequest.h
-        include/HttpResponse.h
-        include/HttpUtils.h
-        source/HttpClient.cpp
-        source/HttpGlobalRequestOptions.cpp
-        source/HttpJsonContent.cpp
-        source/HttpQueryContent.cpp
-        source/HttpRequest.cpp
-        source/HttpResponse.cpp
-        source/HttpUtils.cpp)
+        HttpClient/include/HttpClient.h
+        HttpClient/include/HttpContentInterface.h
+        HttpClient/include/HttpGlobalRequestOptions.h
+        HttpClient/include/HttpJsonContent.h
+        HttpClient/include/HttpQueryContent.h
+        HttpClient/include/HttpRequest.h
+        HttpClient/include/HttpResponse.h
+        HttpClient/include/HttpUtils.h
+        HttpClient/source/HttpClient.cpp
+        HttpClient/source/HttpGlobalRequestOptions.cpp
+        HttpClient/source/HttpJsonContent.cpp
+        HttpClient/source/HttpQueryContent.cpp
+        HttpClient/source/HttpRequest.cpp
+        HttpClient/source/HttpResponse.cpp
+        HttpClient/source/HttpUtils.cpp)
 
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC HTTPCLIENT_VERSION="${PROJECT_VERSION}")
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/HttpClient/include")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Network)
+
+add_subdirectory(test)
+enable_testing()
+add_test(${PROJECT_NAME} MyTest COMMAND Test)
