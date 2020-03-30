@@ -144,6 +144,7 @@ SCENARIO("Http Client Library With Basic Operations")
 SCENARIO("Http Client Library With Proxy")
 {
     HttpClient httpClient;
+    httpClient.setGlobalTimeout(5000);
     QString url = "https://httpbin.org/ip";
     GIVEN("HttpClient to perform http request with proxy")
     {
@@ -160,15 +161,14 @@ SCENARIO("Http Client Library With Proxy")
         {
             HttpRequest request;
             QNetworkProxy networkProxy;
-            QString proxyIP = "50.246.120.125";
+            QString proxyIP = "104.45.188.43";
             networkProxy.setHostName(proxyIP);
-            networkProxy.setPort(8080);
+            networkProxy.setPort(3128);
             request.setProxy(&networkProxy);
             auto reply = httpClient.get(url, &request);
             auto ipAfterProxy = reply->json()["origin"].toString();
             REQUIRE(!ipAfterProxy.isEmpty());
             REQUIRE(proxyIP == ipAfterProxy);
         }
-
     }
 }
