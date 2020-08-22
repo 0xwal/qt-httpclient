@@ -1,7 +1,9 @@
 #include "HttpJsonContent.h"
 
+#include <utility>
 
-HttpJsonContent::HttpJsonContent(const QJsonDocument& json) : m_jsonDoc(json)
+
+HttpJsonContent::HttpJsonContent(QJsonDocument  json) : m_jsonDoc(std::move(json))
 {}
 
 QByteArray HttpJsonContent::content()

@@ -38,7 +38,7 @@ void HttpClient::setGlobalTimeout(quint32 timeoutInMS)
     m_globalRequestOptions->setTimeout(timeoutInMS);
 }
 
-RESPONSE_RETURN_TYPE HttpClient::get(QString url, HttpRequest* request)
+RESPONSE_RETURN_TYPE HttpClient::get(const QString& url, HttpRequest* request)
 {
     return setUp("GET", url, request);
 }

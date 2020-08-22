@@ -10,7 +10,7 @@
 SCENARIO("Http Client Library With Basic Operations")
 {
 
-    QString url("https://httpbin.org/anything");
+    QString url(TEST_URL "/anything");
     HttpClient httpClient;
     GIVEN("Http Client to perform get Requests")
     {
@@ -155,20 +155,6 @@ SCENARIO("Http Client Library With Proxy")
                 auto reply = httpClient.get(url, nullptr);
                 REQUIRE((!reply->json()["origin"].isNull()));
             }
-        }
-
-        WHEN("proxy is provided")
-        {
-            HttpRequest request;
-            QNetworkProxy networkProxy;
-            QString proxyIP = "104.45.188.43";
-            networkProxy.setHostName(proxyIP);
-            networkProxy.setPort(3128);
-            request.setProxy(&networkProxy);
-            auto reply = httpClient.get(url, &request);
-            auto ipAfterProxy = reply->json()["origin"].toString();
-            REQUIRE(!ipAfterProxy.isEmpty());
-            REQUIRE(proxyIP == ipAfterProxy);
         }
     }
 }

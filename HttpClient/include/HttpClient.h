@@ -37,7 +37,7 @@ public:
 
     void setGlobalTimeout(quint32 timeoutInMS);
 
-    RESPONSE_RETURN_TYPE get(QString url, HttpRequest* request);
+    RESPONSE_RETURN_TYPE get(const QString& url, HttpRequest* request);
 
     RESPONSE_RETURN_TYPE post(const QString& url, HttpRequest* request);
 

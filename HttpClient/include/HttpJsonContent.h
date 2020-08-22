@@ -6,7 +6,7 @@
 class HttpJsonContent final: public HttpContentInterface
 {
 public:
-	explicit HttpJsonContent(const QJsonDocument& json);
+	explicit HttpJsonContent(QJsonDocument  json);
 	QByteArray content() override;
 	QByteArray contentType() override;
 
