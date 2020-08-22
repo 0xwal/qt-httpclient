@@ -19,7 +19,7 @@ SCENARIO("Http Client Library With Basic Operations")
         {
             THEN("should be success")
             {
-                auto reply = httpClient.get(url, nullptr);
+                auto reply = httpClient.get(url);
                 REQUIRE(reply->statusCode() == 200);
             }
         }
@@ -41,7 +41,7 @@ SCENARIO("Http Client Library With Basic Operations")
         {
             THEN("Should be success")
             {
-                auto reply = httpClient.post(url, nullptr);
+                auto reply = httpClient.post(url);
                 REQUIRE(reply->statusCode() == 200);
             }
         }
@@ -67,7 +67,7 @@ SCENARIO("Http Client Library With Basic Operations")
         {
             THEN("Should be success")
             {
-                auto reply = httpClient.put(url, nullptr);
+                auto reply = httpClient.put(url);
                 REQUIRE(reply->statusCode() == 200);
             }
         }
@@ -93,7 +93,7 @@ SCENARIO("Http Client Library With Basic Operations")
         {
             THEN("Should be success")
             {
-                auto reply = httpClient.patch(url, nullptr);
+                auto reply = httpClient.patch(url);
                 REQUIRE(reply->statusCode() == 200);
             }
         }
@@ -119,7 +119,7 @@ SCENARIO("Http Client Library With Basic Operations")
         {
             THEN("Should be success")
             {
-                auto reply = httpClient.del(url, nullptr);
+                auto reply = httpClient.del(url);
                 REQUIRE(reply->statusCode() == 200);
             }
         }
@@ -152,7 +152,7 @@ SCENARIO("Http Client Library With Proxy")
         {
             THEN("return current IP")
             {
-                auto reply = httpClient.get(url, nullptr);
+                auto reply = httpClient.get(url);
                 REQUIRE((!reply->json()["origin"].isNull()));
             }
         }
